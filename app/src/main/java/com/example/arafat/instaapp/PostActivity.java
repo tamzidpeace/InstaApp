@@ -15,8 +15,13 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -30,9 +35,11 @@ public class PostActivity extends AppCompatActivity {
     private ImageButton imageButton;
     private EditText titleEditText, descriptionEditText;
     private StorageReference storageReference;
-    private Button postBtn;
     private DatabaseReference databaseReference;
     private FirebaseDatabase database;
+    private DatabaseReference mDatabaseUsers;
+    private FirebaseUser mCurrentUser;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -40,54 +47,14 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-        postBtn = findViewById(R.id.button_post);
         storageReference = FirebaseStorage.getInstance().getReference();
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference().child("InstaApp");
 
+        mAuth = FirebaseAuth.getInstance();
+        mCurrentUser = mAuth.getCurrentUser();
+        mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrentUser.getUid());
 
-
-
-
-        /*postBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                titleEditText = findViewById(R.id.edit_text_post_title);
-                descriptionEditText = findViewById(R.id.edit_text_post_description);
-
-                final String title = titleEditText.getText().toString().trim();
-                final String description = descriptionEditText.getText().toString().trim();
-
-                if (!title.equals("") && !description.equals("")) {
-
-                    StorageReference filePath = storageReference.child("PostImage").child(Objects.requireNonNull(uri.getLastPathSegment()));
-                    filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                            Toast.makeText(PostActivity.this, "Upload Success", Toast.LENGTH_SHORT).show();
-                            // Write a message to the database
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-                            DatabaseReference myRef2 = database.getReference().child("InstaApp").push();
-                            myRef2.child("title").setValue(title);
-                            myRef2.child("description").setValue(description);
-                            myRef2.child("image").setValue(downloadUrl.toString());
-
-
-                        }
-                    });
-
-
-                    Toast.makeText(getApplicationContext(), title + description, Toast.LENGTH_SHORT).show();
-                    titleEditText.setText("");
-                    descriptionEditText.setText("");
-                } else {
-                    Toast.makeText(getApplicationContext(), "enter information", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });*/
     }
 
     public void imageButtonClicked(View view) {
@@ -122,14 +89,42 @@ public class PostActivity extends AppCompatActivity {
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    final Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     Toast.makeText(PostActivity.this, "Upload Success", Toast.LENGTH_SHORT).show();
                     // Write a message to the database
 
-                    DatabaseReference myRef = databaseReference.push();
-                    myRef.child("title").setValue(title);
-                    myRef.child("description").setValue(description);
-                    myRef.child("image").setValue(downloadUrl.toString());
+                    final DatabaseReference myRef = databaseReference.push();
+
+                    mDatabaseUsers.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(final DataSnapshot dataSnapshot) {
+
+                            mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrentUser.getUid());
+
+
+                            myRef.child("title").setValue(title);
+                            myRef.child("description").setValue(description);
+                            myRef.child("image").setValue(downloadUrl.toString());
+                            myRef.child("uid").setValue(mCurrentUser.getUid());
+                            myRef.child("username").setValue(dataSnapshot.child("name").getValue())
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+
+                                                Intent mainActivityIntent = new Intent(PostActivity.this, MainActivity.class);
+                                                startActivity(mainActivityIntent);
+
+                                            }
+                                        }
+                                    });
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
 
 
                 }
