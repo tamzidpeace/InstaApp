@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SetupActivity">
+
+    <ImageButton
+        android:id="@+id/setupImageButton"
+        android:onClick="profileImageButtonClicked"
+        android:src="@drawable/profile_image"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
+    
+    <EditText
+        android:id="@+id/username_edit_text"
+        android:layout_marginTop="10dp"
+        android:hint="Enter Username"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/done_button"
+        android:text="done"
+        android:textSize="25sp"
+        android:onClick="doneButtonClicked"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>
