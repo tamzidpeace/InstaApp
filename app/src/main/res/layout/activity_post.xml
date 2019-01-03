@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PostActivity">
+
+    <ImageButton
+        android:id="@+id/image_button_post_image"
+        android:background="@drawable/lunch"
+        android:padding="5dp"
+        android:onClick="imageButtonClicked"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp" />
+
+    <EditText
+        android:id="@+id/edit_text_post_title"
+        android:hint="Post Title"
+        android:textSize="25sp"
+        android:padding="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/edit_text_shape"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <EditText
+        android:id="@+id/edit_text_post_description"
+        android:hint="Post Description"
+        android:textSize="20sp"
+        android:gravity="start"
+        android:padding="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/edit_text_shape"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <Button
+        android:id="@+id/button_post"
+        android:text="post"
+        android:onClick="onPostClickListener"
+        android:textSize="25sp"
+        android:background="#008577"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>
