@@ -36,7 +36,7 @@ dependencies {
     // firebase dependency
     implementation 'com.google.firebase:firebase-core:10.0.1'
     implementation 'com.google.firebase:firebase-database:10.0.1'
-    //implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    //implementation 'com.google.firebase:firebase-messaging:10.0.1'
     implementation 'com.google.firebase:firebase-storage:10.0.1'
     implementation 'com.google.firebase:firebase-auth:10.0.1'
     implementation 'com.firebaseui:firebase-ui-database:0.4.4'

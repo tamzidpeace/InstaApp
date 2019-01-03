@@ -89,7 +89,7 @@ public class RegisterAcitivity extends AppCompatActivity {
         }
     }
 
-   /* public void loginActivityForward(View view) {
+    public void loginActivityForward(View view) {
         startActivity(new Intent(RegisterAcitivity.this, LoginActivity.class));
-    }*/
+    }
 }
