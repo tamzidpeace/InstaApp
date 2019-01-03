@@ -1,5 +1,6 @@
 package com.example.arafat.instaapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -89,7 +90,7 @@ public class PostActivity extends AppCompatActivity {
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    final Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    @SuppressLint("VisibleForTests") final Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     Toast.makeText(PostActivity.this, "Upload Success", Toast.LENGTH_SHORT).show();
                     // Write a message to the database
 
@@ -104,7 +105,7 @@ public class PostActivity extends AppCompatActivity {
 
                             myRef.child("title").setValue(title);
                             myRef.child("description").setValue(description);
-                            myRef.child("image").setValue(downloadUrl.toString());
+                            myRef.child("image").setValue(downloadUrl != null ? downloadUrl.toString() : null);
                             myRef.child("uid").setValue(mCurrentUser.getUid());
                             myRef.child("username").setValue(dataSnapshot.child("name").getValue())
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {

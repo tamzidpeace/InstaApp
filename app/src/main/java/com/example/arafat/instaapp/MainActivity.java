@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.setTitle2(model.getTitle());
                 viewHolder.setDesc2(model.getDescription());
                 viewHolder.setImage(getApplicationContext(), model.getImage());
+                viewHolder.setUsername(model.getUsername());
             }
         };
         recyclerViewInstaApp.setAdapter(FBRA);
@@ -103,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
 
             TextView postDesc =itemView.findViewById(R.id.textDescription);
             postDesc.setText(desc);
+        }
+
+        public void setUsername(String username) {
+            TextView username2 = itemView.findViewById(R.id.username);
+            username2.setText(username);
         }
 
         public void setImage(Context ctx, String image) {

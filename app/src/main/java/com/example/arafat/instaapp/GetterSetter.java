@@ -2,15 +2,16 @@ package com.example.arafat.instaapp;
 
 public class GetterSetter {
 
-    String title, description, image;
+    String title, description, image, username;
 
     public GetterSetter() {
     }
 
-    public GetterSetter(String title, String description, String image) {
+    public GetterSetter(String title, String description, String image, String username) {
         this.title = title;
         this.description = description;
         this.image = image;
+        this.username = username;
     }
 
     public String getTitle() {
@@ -35,5 +36,13 @@ public class GetterSetter {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
