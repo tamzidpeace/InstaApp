@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -84,6 +85,9 @@ public class SetupActivity extends AppCompatActivity {
                     String downloadurl = taskSnapshot.getDownloadUrl().toString();
                     mDatabaseusers.child(user_id).child("name").setValue(name);
                     mDatabaseusers.child(user_id).child("image").setValue(downloadurl);
+
+                    startActivity(new Intent(SetupActivity.this, MainActivity.class));
+                    Toast.makeText(SetupActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                 }
             });
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EveryPost">
+
+    <ImageView
+        android:id="@+id/every_post_image"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="200dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Post Title"
+        android:textSize="25sp"
+        android:layout_margin="10dp"
+        android:id="@+id/every_text_title"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Post Description"
+        android:layout_margin="10dp"
+        android:textSize="20sp"
+        android:id="@+id/every_text_description"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/delete_button"
+        android:text="Delete the post"
+        android:textAllCaps="false"
+        android:onClick="onClickDelete"/>
+
+</LinearLayout>
